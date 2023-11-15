@@ -22,20 +22,20 @@ from bs4 import BeautifulSoup
 import requests
 import os
 
-#Colors
+# Colors
 grey = "\033[0;90m"
 red = "\033[0;91m"
 blue = "\033[0;34m"
 green = "\033[0;32m"
 reset = "\033[0m"
 
-#Colors_bold
+# Colors_bold
 redB = "\033[1;91m"
 blueB = "\033[1;34m"
 greyB = "\033[1;90m"
 greenB = "\033[1;32m"
 
-clear_screen = lambda : os.system("cls" if os.name == "nt" else "clear")
+clear_screen = lambda: os.system("cls" if os.name == "nt" else "clear")
 
 def word_search():
     clear_screen()
@@ -54,7 +54,6 @@ def word_search():
         except AttributeError:
             print("Ordet du leder efter findes ikke.")
 
-
     print(f"\n{blueB}{header_match.capitalize()}{reset}")
     print(header_class.capitalize())
 
@@ -66,7 +65,6 @@ def word_search():
     except Exception:
         print(f"\n{blueB}Bøjninger:{reset}")
         print("Der er ingen bøjninger for dette ord.")
-        
 
     try:
         etymologi_section = article.find(id="id-ety")
@@ -77,7 +75,6 @@ def word_search():
     except Exception:
         print(f"\n{blueB}Etymologi:{reset}")
         print("Ordnet kender ikke oprindelsen af dette ord.")
-
 
     print(f"\n{blueB}Definition(er):{reset}")
     definition_section = article.find("div", id="content-betydninger")
@@ -93,8 +90,8 @@ def word_search():
         print(f"\n{blueB}Definition(er):{reset}")
         print("Ordnet kender ingen definitioner for dette ord.")
 
-
     try:
+        # Does not differentiate between synonyms and antonyms
         synonym_section = article.find("div", class_="definitionBox onym")
         synonym_section_items = ", ".join([i.text.strip() for i in synonym_section.find("span", class_="inlineList").find_all("a")])
         print()
@@ -112,6 +109,6 @@ def word_search():
         return
     else:
         word_search()
-    
-word_search()
 
+
+word_search()
